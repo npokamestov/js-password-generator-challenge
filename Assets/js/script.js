@@ -1,49 +1,61 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+ if (generateBtn.addEventListener)
+      // Add event listener to generate button
+      generateBtn.addEventListener("click", writePassword, false);
+ else if (generateBtn.addEventListener)
+      generateBtn.addEventListener("onclick", writePassword);
+
 
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
+  passwordText = password;
 }
+//generate password based on criteria from prompts
+function generatePassword() {
+  var length = Number(prompt("How many characters would you like your password to be? \n Length must be between 8-128 characters"));
+  //prompt when the number that is entered is outside of the desired range, loop back until in rnage
+  while (isNaN(length) || length < 8 || length > 128) length = Number(prompt("Length must be 8-128 characters. How many characters would you like your password to be?"));
+      
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+  //prompt to confirm character choices
+  var uppers = confirm("Would you like to use uppercase letters?");
+  var lowers = confirm("Would you like to use lowercase letters?");
+  var numbers = confirm("Would you like to use numbers?");
+  var specials = confirm("Would you like to use special characters?");
 
+  console.log(length)
+  console.log(uppers)
+  console.log(lowers)
+  console.log(numbers)
+  console.log(specials)
+  //prompt for when no choices are made, loop back until one is made
+  while (!uppers && !lowers && !numbers && !specials) {
+    alert("You must select at least one character type!");
+    uppers = confirm("Would you like to use uppercase letters?");
+    lowers = confirm("Would you like to use lowercase letters?");
+    numbers = confirm("Would you like to use numbers?");
+    specials = confirm("Would you like to use special characters?");
 
-// Prompt user to select criteria and store as variables
-do{
-    var passwordLength = parseInt(window.prompt("How long do you want your password to be? \n Please choose a number between 8 and 128."), 10);
-}while(isNaN(passwordLength) || passwordLength > 128 || passwordLength < 8);
-
-var upper = window.confirm("Include UPPERCASE letters?");
-var lower = window.confirm("Include lowercase letters?");
-var numeric = window.confirm("Include numbers?");
-var special = window.confirm("Include special characters?");
-
-console.log(passwordLength);
-console.log(upper);
-console.log(lower);
-console.log(numeric);
-console.log(special);
-
-var choices = [
-         /* 0 */["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"],
-         /* 1 */["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],
-         /* 2 */[0,1,2,3,4,5,6,7,8,9],
-         /* 3 */['!','\"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~']
-              ];
-
-//if all true, then random number for both choices[x][y] (0 <= x < 4) and (0 <= y < choices[x].length).
-
-//if
-passwordPrint = [];
-for (var i = 0; i < passwordLength; i++){
-  var x = Math.floor(Math.random() *4);
-
-  console.log(choices[x][Math.floor(Math.random() *choices[x].length)]);
-  passwordPrint[i] = choices[x][Math.floor(Math.random() *choices[x].length)];
+    console.log(length)
+    console.log(uppers)
+    console.log(lowers)
+    console.log(numbers)
+    console.log(specials)
+  }
+  //variable for the loop
+  var password = "";
+  //array of allowed characters along with random selections where needed
+  var allowed = {};
+  if (uppers) password += rando(allowed.uppers = "QWERTYUIOPASDFGHJKLZXCVBNM");
+  if (lowers) password += rando(allowed.lowers = "qwertyuiopasdfghjklzxcvbnm");
+  if (numbers) password += rando(allowed.numbers = "1234567890");
+  if (specials) password += rando(allowed.specials = "!@#$%'\"^&*(){}[]=<>/,.");
+  //for loop to generate password based on selections
+  for (var i = password.length; i < length; i++) password += rando(rando(allowed).value);
+  //combine elements and then return value to be written
+  document.querySelector("#password").value = randoSequence(password).join("");
+  console.log(password)
 }
