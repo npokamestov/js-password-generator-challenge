@@ -15,22 +15,25 @@ function writePassword() {
 }
 //generate password based on criteria from prompts
 function generatePassword() {
-  var length = Number(prompt("How many characters would you like your password to be? \n Length must be between 8-128 characters"));
+  var length = Number(prompt("How many characters would you like your password to be? \nLength must be between 8-128 characters"));
+  if (length == "" || length == null) {
+    alert("You choose to cancel");
+    return;
+  }
   //prompt when the number that is entered is outside of the desired range, loop back until in rnage
   while (isNaN(length) || length < 8 || length > 128) length = Number(prompt("Length must be 8-128 characters. How many characters would you like your password to be?"));
-      
-
   //prompt to confirm character choices
   var uppers = confirm("Would you like to use uppercase letters?");
   var lowers = confirm("Would you like to use lowercase letters?");
   var numbers = confirm("Would you like to use numbers?");
   var specials = confirm("Would you like to use special characters?");
-
+/*
   console.log(length)
   console.log(uppers)
   console.log(lowers)
   console.log(numbers)
   console.log(specials)
+*/
   //prompt for when no choices are made, loop back until one is made
   while (!uppers && !lowers && !numbers && !specials) {
     alert("You must select at least one character type!");
@@ -38,12 +41,13 @@ function generatePassword() {
     lowers = confirm("Would you like to use lowercase letters?");
     numbers = confirm("Would you like to use numbers?");
     specials = confirm("Would you like to use special characters?");
-
+/*
     console.log(length)
     console.log(uppers)
     console.log(lowers)
     console.log(numbers)
     console.log(specials)
+*/
   }
   //variable for the loop
   var password = "";
@@ -57,5 +61,5 @@ function generatePassword() {
   for (var i = password.length; i < length; i++) password += rando(rando(allowed).value);
   //combine elements and then return value to be written
   document.querySelector("#password").value = randoSequence(password).join("");
-  console.log(password)
+  //console.log(password)
 }
