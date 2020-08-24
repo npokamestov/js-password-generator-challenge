@@ -45,7 +45,7 @@ The following image demonstrates the application functionality:
 https://npokamestov.github.io/js-password-generator-challenge/
 
 ## Screenshot
-![screenshot of deployed application](.Assets/images/password-generator-screenshot.png)
+![screenshot of deployed application](./Assets/images/password-generator-screenshot.png)
 
 ## Review
 
